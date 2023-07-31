@@ -18,26 +18,47 @@ let turnos = [
 function Turno(nombre, apellido, edad){
     this.nombre = nombre;
     this.apellido = apellido;
-    this. edad = edad;
+    this.edad = edad;
 }
 
-name = prompt("Ingrese su nombre");
+let eNombre = prompt("Ingrese su nombre");  //entrada de nombre
 
-lastname = prompt("Ingrese su apellido");
-age = parseInt(prompt("Ingrese su edad"));
-while( Number.isNaN(age) == true){
-    age = parseInt(prompt("No ingresaste un numero"));
+let eApellido = prompt("Ingrese su apellido");
+let eEdad = parseInt(prompt("Ingrese su edad"));
+while( Number.isNaN(eEdad) === true){
+    eEdad = parseInt(prompt("No ingresaste un numero"));
 }
 
-turn = new Turno(name,lastname,age);
+let turn = new Turno(eNombre,eApellido,eEdad);
 turnos.push(turn);
 
 turnos.forEach(element => console.log(element));
 
-for(let i = 0; i< turnos.length; i =0){
-    alert("Es el turno de " + turnos[i].nombre);
-    turnos.shift();
+let ePacientes = turnos.map(function(edades){
+    return edades.edad
+});                                //Edad de pacientes
+
+
+
+
+function ordenarTurnos (array){                       //Ordena de mayor a menos las edades
+    return array.sort((a, b) => b -a );
+}
+let orden = ordenarTurnos(ePacientes);
+console.log (orden);
+
+for(let i = 0; i< orden.length; i =0){                       //Da primero el turno a los de mayor edad
+    let siguienteTurno = turnos.find(elemento =>{
+        return elemento.edad === orden[i];
+    })
+    console.log(siguienteTurno);
+    alert("Es el turno de " +siguienteTurno.nombre
+    );
+    orden.shift();
 }
 
 
 
+for(let i = 0; i< turnos.length; i=0){                      //Borra los turnos
+    turnos.shift();
+}
